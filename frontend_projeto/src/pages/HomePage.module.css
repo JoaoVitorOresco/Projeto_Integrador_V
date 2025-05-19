@@ -1,0 +1,18 @@
+.homePageComFundo {
+  background-image: url('../assets/images/imagem_fundo.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 100vh;
+  width: 100%;
+
+}
+
+.overlay { 
+  background-color: rgba(0, 0, 0, 0.5);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

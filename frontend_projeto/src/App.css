@@ -1,0 +1,25 @@
+  .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  }
+  .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+body, html, #root {
+  height: 100%;
+  margin: 0;
+
+}
+
+.app-background {
+  background: linear-gradient(135deg, #74ABE2 0%, #5563DE 100%);
+  min-height: calc(100% - 56px); /* desconta altura da navbar */
+}
+
+.upload-card {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+}

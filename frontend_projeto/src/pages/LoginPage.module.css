@@ -1,0 +1,17 @@
+.navbar {
+    background-color: #007bff !important; 
+  
+  .navbar-brand {
+    color: white !important; 
+    font-weight: bold;
+  }
+  
+  .form-container {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+    
