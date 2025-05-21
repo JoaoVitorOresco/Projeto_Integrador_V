@@ -1,17 +1,17 @@
 import numpy as np
+import config
 
 class DetectorCombate:
-    def __init__(self, threshold_movimento=500, intervalo_frames=2, limite_mov_detectado=8,#8,
-                 threshold_braco=85, threshold_angulo_perna=150, lim_minimo_mov_detectado=-12):
+    def __init__(self):
         self.frames_buffer = []
-        self.intervalo_frames = intervalo_frames
-        self.threshold_movimento = threshold_movimento
-        self.limite_mov_detectado = limite_mov_detectado
-        self.threshold_braco = threshold_braco
-        self.threshold_angulo_perna = threshold_angulo_perna
+        self.intervalo_frames = config.intervalo_frames
+        self.threshold_movimento = config.threshold_movimento
+        self.limite_mov_detectado = config.limite_mov_detectado
+        self.threshold_braco = config.threshold_braco
+        self.threshold_angulo_perna = config.threshold_angulo_perna
         self.qtd_mov_detectado = 0
         self.estado_combate = "fora_de_combate"
-        self.lim_minimo_mov_detectado = lim_minimo_mov_detectado
+        self.lim_minimo_mov_detectado = config.lim_minimo_mov_detectado
 
     def calcular_movimento_total(self, pontos_anteriores, pontos_atuais):
         movimento_total = 0

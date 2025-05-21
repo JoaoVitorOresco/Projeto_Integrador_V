@@ -1,0 +1,8 @@
+#class_combate.py
+
+threshold_movimento=500
+intervalo_frames=2
+limite_mov_detectado=8
+threshold_braco=85
+threshold_angulo_perna=150
+lim_minimo_mov_detectado=-12
