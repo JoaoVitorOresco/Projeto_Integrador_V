@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './RegistrationPage.module.css';
 import { Link, useNavigate  } from 'react-router-dom';
 import axios from 'axios';
+import sideImage from '../images/reg-side.jpeg';
 
 function RegistrationPage() {
   const [username, setUsername] = useState('');
@@ -56,9 +57,9 @@ function RegistrationPage() {
 
   return (
 
-     <div className={`container d-flex justify-content-center align-items-center ${styles.registrationPageContainer || ''}`} style={{ minHeight: '100vh' }}>
-     <div className={styles.formContainer || 'col-md-6'}>
-     <h1 className={styles.formTitle || 'text-center mb-4'}>Cadastro de Usuário</h1>
+    <div className={styles.pageWrapper}>
+      <div className={styles.left}>
+        <h1 className={styles.formTitle || 'text-center mb-4'}>Cadastro de Usuário</h1>
 
         {errors.non_field_errors && ( <div className="alert alert-danger">{errors.non_field_errors.join(' ')}</div> )}
         {errors.detail && ( <div className="alert alert-danger">{errors.detail}</div> )}
@@ -66,7 +67,7 @@ function RegistrationPage() {
 
 
         <form onSubmit={handleSubmit}>
-           <div className="mb-3">
+           <div className="mb-3 text-start">
             <label htmlFor="username" className="form-label">Nome de Usuário</label>
             <input
               type="text" id="username" name="username" className="form-control"
@@ -76,7 +77,7 @@ function RegistrationPage() {
             {errors.username && <div className="text-danger mt-1" style={{fontSize: '0.875em'}}>{errors.username.join(', ')}</div>}
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3 text-start">
             <label htmlFor="emailReg" className="form-label">E-mail</label>
             <input
               type="email" id="emailReg" name="email" className="form-control"
@@ -86,7 +87,7 @@ function RegistrationPage() {
             {errors.email && <div className="text-danger mt-1" style={{fontSize: '0.875em'}}>{errors.email.join(', ')}</div>}
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3 text-start">
             <label htmlFor="passwordReg" className="form-label">Senha</label>
             <input
               type="password" id="passwordReg" name="password1" className="form-control"
@@ -96,7 +97,7 @@ function RegistrationPage() {
              {errors.password1 && <div className="text-danger mt-1" style={{fontSize: '0.875em'}}>{errors.password1.join(', ')}</div>}
           </div>
 
-          <div className="mb-3">
+          <div className="mb-3 text-start">
             <label htmlFor="password2" className="form-label">Confirmar Senha</label>
             <input
               type="password" id="password2" name="password2" className="form-control"
@@ -114,6 +115,22 @@ function RegistrationPage() {
         <div className="text-center mt-3">
           <Link to="/login" className="text-decoration-none">Já tem uma conta? Entre</Link>
         </div>
+      </div>
+      <div
+        className={styles.right}
+        style={{
+          flex: '0 0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1rem'
+        }}
+      >
+        <img
+          src={sideImage}
+          alt="Registration illustration"
+          style={{ width: '1280px', height: '720px', objectFit: 'cover', borderRadius: '16px' }}
+        />
       </div>
     </div>
   );

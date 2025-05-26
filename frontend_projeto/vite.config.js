@@ -17,7 +17,7 @@ export default defineConfig({
     ],
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:x', //URL servidor django
+        target: 'http://127.0.0.1:8001', //URL servidor django
         changeOrigin: true,
       }
     },

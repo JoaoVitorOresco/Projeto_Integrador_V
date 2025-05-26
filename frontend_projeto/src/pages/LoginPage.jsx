@@ -3,6 +3,7 @@ import styles from './LoginPage.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { authContext } from '../context/AuthContext';
+import sideImage from '../images/login-side.jpeg';
 
 
 function LoginPage() {
@@ -68,14 +69,8 @@ function LoginPage() {
 
   return (
     <>
-      <nav className="navbar navbar-light bg-light">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">Login de Usuários</Link>
-        </div>
-      </nav>
-
-      <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: 'calc(100vh - 56px)' }}>
-        <div className="col-md-6">
+      <div className={styles.pageWrapper}>
+        <div className={styles.left}>
           <h1 className="text-center mb-4">Login</h1>
 
           {error && (
@@ -86,7 +81,7 @@ function LoginPage() {
 
           <form onSubmit={handleSubmit}>
 
-              <div className="mb-3">
+              <div className="mb-3 text-start">
               <label htmlFor="usernameInput" className="form-label">Nome de Usuário</label>
               <input
                 id="usernameInput"
@@ -101,7 +96,7 @@ function LoginPage() {
             </div>
 
             
-            <div className="mb-3">
+            <div className="mb-3 text-start">
               <label htmlFor="emailInput" className="form-label">E-mail</label>
               <input
                 id="emailInput"
@@ -116,7 +111,7 @@ function LoginPage() {
             </div>
 
             
-            <div className="mb-3">
+            <div className="mb-3 text-start">
               <label htmlFor="passwordInput" className="form-label">Senha</label>
               <input
                 id="passwordInput"
@@ -139,6 +134,15 @@ function LoginPage() {
             <Link to="/cadastro" className="text-decoration-none">Não tem uma conta? Cadastre-se</Link>
           </div>
         </div>
+          
+          <div className={styles.right} style={{ flex: '0 0 300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img
+            src={sideImage}
+            alt="Login illustration"
+            style={{ width: '1280px', height: '750px', objectFit: 'cover', borderRadius: '16px' }}
+          />
+        </div>
+      
       </div>
     </>
   );

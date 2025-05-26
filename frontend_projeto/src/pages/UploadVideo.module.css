@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+:root {
+  --primary-color: #007bff;
+  --primary-color-dark: #0056b3;
+  --primary-color-light: #58a6ff;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --text-color: #333;
+  --text-muted-custom: #6c757d;
+  --background-color: #f4f7f6; /* Um cinza bem claro para o fundo */
+  --card-background-color: #ffffff;
+  --border-color: #dee2e6;
+  --font-family-sans-serif: 'Montserrat', sans-serif;
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08); /* Sombra mais suave */
+  --border-radius: 0.375rem; /* Bootstrap's default */
+  --border-radius-lg: 0.5rem;
+}
+
+.pageWrapper {
+  font-family: var(--font-family-sans-serif);
+  background-color: var(--background-color);
+  min-height: 100vh;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  background-color: var(--primary-color) !important;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  flex-shrink: 0; /* Navbar não encolhe */
+}
+
+.navbarBrand {
+  color: white !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navButton {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: white;
+  border-color: white;
+}
+.navButton:hover {
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+  border-color: white;
+}
+.navButton svg {
+  margin-bottom: 2px; 
+}
+
+.pageContainer {
+  max-width: 1200px; 
+  flex-grow: 1; /* Container principal ocupa o espaço restante */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pageTitle {
+  color: var(--primary-color-dark);
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary-color-light);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+  margin-bottom: 1.5rem; /* Adiciona mais espaço abaixo do título */
+}
+
+/* Estilos para Cards (usado em VideoListPage e pode ser usado em UploadVideoPage) */
+.card { /* Estilo base para todos os cards se você usar Card do react-bootstrap */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg); /* Bordas mais arredondadas */
+  box-shadow: var(--box-shadow);
+  background-color: var(--card-background-color);
+}
+
+.videoCard { /* Específico para cards de vídeo na lista */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.videoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+}
+
+.videoTitle {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.videoInfo {
+  font-size: 0.875rem;
+  color: var(--text-muted-custom);
+  margin-bottom: 0.3rem;
+}
+
+.videoInfo .badge {
+  font-size: 0.75rem;
+  padding: 0.3em 0.6em;
+}
+
+.actionsContainer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem !important; 
+}
+
+.actionButton {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px; /* Para dar um tamanho mínimo aos botões */
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+}
+.actionButton svg {
+  margin-bottom: 1px;
+}
+
+/* Estilos para o Card de Formulário (UploadVideoPage) */
+.formCard {
+  padding: 2rem; /* Mais padding interno no card */
+  margin-top: 2rem; /* Espaço acima do card */
+  margin-bottom: 2rem; /* Espaço abaixo do card */
+}
+
+.formTitle {
+  color: var(--primary-color-dark);
+  font-weight: 700;
+  font-size: 1.75rem; /* Título maior */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formTitle svg { /* Ícone no título do formulário */
+ color: var(--primary-color);
+}
+
+
+.formLabel {
+  font-weight: 500;
+  color: var(--text-muted-custom);
+  margin-bottom: 0.5rem;
+}
+
+/* Estilos para os modais (mantidos da VideoListPage) */
+.modalHeader {
+  background-color: var(--primary-color);
+  color: white;
+  border-bottom: none;
+}
+.modalHeader .btn-close { 
+  filter: brightness(0) invert(1);
+}
+
+.modalTitle {
+  font-weight: 700;
+}
+
+.modalBody {
+  padding: 1.5rem;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.modalFooter {
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+}
+
+.buttonSecondary, .buttonDanger {
+  font-weight: 500;
+}
+
+.alertBox {
+  box-shadow: var(--box-shadow);
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+}
+.alertBox svg {
+  flex-shrink: 0; 
+}
+
+/* Responsividade para os botões de ação em telas menores (mantido) */
+@media (max-width: 767px) {
+  .actionsContainer .btn {
+    width: 100%; 
+    margin-bottom: 0.5rem;
+  }
+  .actionsContainer .btn:last-child {
+    margin-bottom: 0;
+  }
+}

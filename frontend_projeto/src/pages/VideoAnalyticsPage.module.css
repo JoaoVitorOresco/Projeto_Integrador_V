@@ -1,0 +1,136 @@
+@import url('[https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap](https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap)');
+
+:root {
+  --primary-color: #007bff;
+  --primary-color-dark: #0056b3;
+  --primary-color-light: #58a6ff;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --text-color: #333;
+  --text-muted-custom: #6c757d;
+  --background-color: #f4f7f6;
+  --card-background-color: #ffffff;
+  --border-color: #dee2e6;
+  --font-family-sans-serif: 'Montserrat', sans-serif;
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+  --border-radius: 0.375rem;
+  --border-radius-sm: 0.25rem;
+}
+
+.pageWrapper {
+  font-family: var(--font-family-sans-serif);
+  background-color: var(--background-color);
+  min-height: 100vh;
+  color: var(--text-color);
+}
+
+.navbar {
+  background-color: var(--primary-color) !important;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbarBrand {
+  color: white !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navButton {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: white;
+  border-color: white;
+}
+.navButton:hover {
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+  border-color: white;
+}
+.navButton svg {
+  margin-bottom: 2px;
+}
+
+.pageContainer {
+  max-width: 1200px;
+}
+
+.pageTitle {
+  color: var(--primary-color-dark);
+  font-weight: 700;
+  border-bottom: 2px solid var(--primary-color-light);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+}
+
+.loadingText {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.alertBox {
+  box-shadow: var(--box-shadow);
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius);
+}
+.alertBox svg {
+  flex-shrink: 0; 
+}
+
+.graphCard {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: var(--card-background-color);
+  overflow: hidden; /* Para garantir que o header não ultrapasse as bordas arredondadas */
+}
+
+.graphCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+}
+
+.cardHeader {
+  background-color: var(--primary-color-light);
+  color: white;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cardBody {
+  padding: 1.5rem;
+  min-height: 300px; /* Para dar um espaço mínimo para os gráficos ou mensagem */
+}
+
+.cardBody img {
+  border: 1px solid var(--border-color); /* Borda sutil na imagem do gráfico */
+}
+
+.cardBody .text-muted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.cardBody .text-muted svg {
+  color: var(--secondary-color);
+}
+
