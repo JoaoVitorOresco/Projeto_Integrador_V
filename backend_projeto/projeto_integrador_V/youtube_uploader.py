@@ -70,8 +70,8 @@ def upload_video_ytb(video_path, title, description):
                 print(f"ERRO (YT Uploader): Verifique se você pode interagir com o console/navegador se esta for a primeira autenticação ou se o token expirou sem refresh.")
                 return None
 
-        # Salva as credenciais (novas ou atualizadas) para a próxima execução
-        if credentials: # Apenas tenta salvar se as credenciais foram obtidas/atualizadas
+
+        if credentials: 
             try:
                 with open(TOKEN_PICKLE_FILE_PATH, "wb") as token_file:
                     pickle.dump(credentials, token_file)
@@ -91,11 +91,10 @@ def upload_video_ytb(video_path, title, description):
             "snippet": {
                 "title": title,
                 "description": description,
-                # "tags": [], # O script original não enviava tags
-                "categoryId": "17"  # 17 = sports (Esportes) - como no seu script original
+                "categoryId": "17" 
             },
             "status": {
-                "privacyStatus": "unlisted", # Como no seu script original
+                "privacyStatus": "unlisted", 
                 "selfDeclaredMadeForKids": False
             }
         }
@@ -118,7 +117,7 @@ def upload_video_ytb(video_path, title, description):
             youtube_watch_url = f"https://www.youtube.com/watch?v={video_id}"
             print(f"SUCESSO (YT Uploader): Vídeo enviado! ID: {video_id}")
             print(f"Link: {youtube_watch_url}")
-            return video_id # Retorna o ID do vídeo
+            return video_id 
         else:
             print(f"ERRO (YT Uploader): Upload concluído, mas sem ID de vídeo na resposta. Resposta: {response}")
             return None

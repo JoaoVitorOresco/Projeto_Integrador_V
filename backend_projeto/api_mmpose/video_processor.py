@@ -102,7 +102,6 @@ def process_video_with_mmpose(video_instance, django_request_object=None):
                 detections_sorted_cf = sorted(detections_cf, key=lambda x: x.get('bbox_score', 0), reverse=True)
                 if len(detections_sorted_cf) >= 2:
                     top2_detections_cf = detections_sorted_cf[:2]
-                    # ... (lógica de ordenação e extração de keypoints mantida) ...
                     bbox_pA_data = top2_detections_cf[0].get('bbox'); bbox_pB_data = top2_detections_cf[1].get('bbox')
                     bbox_pA_x = bbox_pA_data[0][0] if bbox_pA_data and len(bbox_pA_data) > 0 else float('inf')
                     bbox_pB_x = bbox_pB_data[0][0] if bbox_pB_data and len(bbox_pB_data) > 0 else float('inf')
@@ -159,7 +158,6 @@ def process_video_with_mmpose(video_instance, django_request_object=None):
         print(f"INFO: Loop 1 concluído. {frame_count} frames lidos. {len(all_drawn_frames)} frames desenhados armazenados.")
 
         if frame_data_objects_to_create_db:
-            # ... (lógica de 'cup_above' mantida) ...
             frames_dict_for_cup={}; [frames_dict_for_cup.setdefault(f.frame_number,[]).append(f) for f in frame_data_objects_to_create_db]
             for f_num, p_objs in frames_dict_for_cup.items():
                 if len(p_objs)==2:
@@ -178,7 +176,6 @@ def process_video_with_mmpose(video_instance, django_request_object=None):
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         out = cv2.VideoWriter(output_video_full_path, fourcc, fps_original, (width_original, height_original))
         if not out.isOpened():
-            # ... (fallback para AVI mantido) ...
             output_video_filename_avi = f"{original_filename_base}_processed_yt_{timestamp}.avi" 
             processed_video_path_relative_to_media_avi = os.path.join('videos', 'processed', output_video_filename_avi) 
             output_video_full_path_avi = os.path.join(settings.MEDIA_ROOT, processed_video_path_relative_to_media_avi) 
@@ -212,10 +209,7 @@ def process_video_with_mmpose(video_instance, django_request_object=None):
         if youtube_uploader_available and os.path.exists(output_video_full_path):
             print(f"INFO: Tentando upload de {output_video_full_path} para YouTube...")
             video_instance.youtube_upload_status = 'pending_youtube_upload'
-            video_instance.save() # Salva o status antes da chamada de upload
-
-            # Parâmetros para a função de upload
-            # Assumindo que seu vídeo original tem um título, ou use um padrão
+            video_instance.save() # Salva o status antes da chamada
             title_yt = f"{video_instance.title or original_filename_base} - Análise Esgrimetrics"
             description_yt = (
                 f"Análise de esgrima para o vídeo: {video_instance.title or original_filename_base}.\n"
@@ -226,15 +220,8 @@ def process_video_with_mmpose(video_instance, django_request_object=None):
             if hasattr(video_instance, 'user') and video_instance.user:
                  tags_yt.append(video_instance.user.username)
             
-            # A função upload_video_ytb deve retornar o ID do vídeo ou None/False em caso de falha.
-            # Ela também precisa dos parâmetros corretos.
-            # Se ela precisar do objeto 'request_django' para autenticação, ele deve ser passado.
-            # Se ela precisar de 'service', category_id, privacy_status, eles devem ser passados.
-            # Vou assumir uma assinatura similar à nossa função 'upload_video' anterior.
-            # Você precisará ajustar isso para corresponder à sua função 'upload_video_ytb'.
             
             youtube_id_str = upload_video_ytb(
-                # service=youtube_service, # Se upload_video_ytb espera um service pré-autenticado
                 video_path=output_video_full_path,
                 title=title_yt,
                 description=description_yt,
@@ -245,13 +232,6 @@ def process_video_with_mmpose(video_instance, django_request_object=None):
                 video_instance.youtube_upload_status = 'uploaded_to_youtube'
                 video_instance.processing_log += f"\nVídeo enviado para YouTube com ID: {youtube_id_str}"
                 print(f"INFO: Vídeo enviado para YouTube com ID: {youtube_id_str}")
-                # Opcional: apagar arquivo local após upload
-                try:
-                    os.remove(output_video_full_path)
-                    video_instance.processed_file_cleaned_up = True
-                    print(f"INFO: Arquivo processado local apagado: {output_video_full_path}")
-                except OSError as e_rem:
-                    print(f"ERRO: Ao apagar arquivo processado local: {e_rem}")
             else:
                 video_instance.youtube_upload_status = 'youtube_upload_failed'
                 video_instance.processing_log += "\nFalha ao enviar vídeo para YouTube."

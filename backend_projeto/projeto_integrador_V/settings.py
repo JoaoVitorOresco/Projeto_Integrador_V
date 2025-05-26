@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-23k2u=#w-#z2tm!^aaei06s^^a87p5dipvuggpjm41op2$f_8a'
+SECRET_KEY = "x"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'esgrimetrics.ngrok.app', # url do ngrok
+    'x', # url do ngrok
 ]
 
 
@@ -96,12 +96,12 @@ WSGI_APPLICATION = 'projeto_integrador_V.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'projeto_integrador',
-        'USER': 'postgres',
-        'PASSWORD': 'projetointegrador', 
-        'HOST': '172.27.208.1',                     
-        'PORT': '5432',                       
+        'ENGINE': 'x',
+        'NAME': 'x',
+        'USER': 'x',
+        'PASSWORD': 'x', 
+        'HOST': 'x',                     
+        'PORT': 'x',                       
     }
 }
 
@@ -154,12 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # à sua API Django.
 CORS_ALLOWED_ORIGINS = [
     # Adicione as URLs EXATAS do seu frontend aqui. Exemplos:
-    "http://localhost:5173",    # URL React
-    "http://localhost:3000",    # Comum para React (create-react-app)
-    "http://localhost:5173",    # Comum para Vite (React, Vue)
-    "http://localhost:8080",    # Comum para Vue CLI
-    "http://127.0.0.1:5500",    # Comum para extensão "Live Server" do VS Code
-    "https://esgrimetrics.ngrok.app",                           # url do ngrok
+    "x",    # URL React
+    "x",    
+    "x",    # url do ngrok
 
     # Quando você colocar seu frontend em produção, adicione a URL dele aqui também:
     # "https://www.seusitefrontend.com",
@@ -186,11 +183,11 @@ REST_FRAMEWORK = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8001',  # Se o seu Django corre aqui
-    'http://127.0.0.1:8001', # E aqui
-    'http://localhost:5173',  # A origem do seu Vite em desenvolvimento local
-    'http://127.0.0.1:5173', # A origem do seu Vite em desenvolvimento local
-    'https://esgrimetrics.ngrok.app', # url ngrok
+    'x',  # Se o seu Django corre aqui
+    'x',
+    'x',  # A origem do seu Vite em desenvolvimento local
+    'x', # A origem do seu Vite em desenvolvimento local
+    'x', # url ngrok
 ]
 
 MEDIA_URL = '/mediafiles/'

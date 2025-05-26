@@ -196,7 +196,7 @@ def grafico_scatter_pulso_mais_alto_comparativo(dados, estado_combate_filtro=Non
         print("Info (scatter_pulso): DataFrame vazio após processar y_pulso_frente.")
         return None
     
-    # ... (resto da lógica de plotagem como antes, usando dados_renomeados) ...
+
     jogador_0 = dados_renomeados[dados_renomeados['jogador'] == 0]
     jogador_1 = dados_renomeados[dados_renomeados['jogador'] == 1]
     if jogador_0.empty or jogador_1.empty:
@@ -253,7 +253,7 @@ def grafico_media_pulso_acima_comparativo(dados, estado_combate_filtro=None):
         print("Info (media_pulso_acima): DataFrame vazio após processar y_pulso_frente.")
         return None
 
-    # ... (resto da lógica de plotagem como antes, usando dados_renomeados) ...
+
     jogador_0 = dados_renomeados[dados_renomeados['jogador'] == 0]; jogador_1 = dados_renomeados[dados_renomeados['jogador'] == 1]
     if jogador_0.empty or jogador_1.empty:
         print("Info (media_pulso_acima): Dados insuficientes para um ou ambos jogadores.")

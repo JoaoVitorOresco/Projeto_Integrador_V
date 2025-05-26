@@ -7,11 +7,9 @@ from google_auth_oauthlib.flow import Flow
 import pickle
 import os
 
-# Importar configurações do youtube_config.py
-# Se youtube_config.py estiver no mesmo diretório que este views.py:
+
 from . import youtube_config
-# Se estiver num local diferente, ajuste o import:
-# from seuprojeto.youtube_config import CLIENT_SECRETS_FILE, SCOPES, REDIRECT_URI, TOKEN_PICKLE_FILE
+
 
 
 def google_auth_start_view(request):
@@ -26,17 +24,13 @@ def google_auth_start_view(request):
             redirect_uri=youtube_config.REDIRECT_URI
         )
 
-        # 'access_type='offline'' é crucial para obter um refresh_token,
-        # permitindo que a sua aplicação obtenha novos access_tokens sem interação do utilizador no futuro.
-        # 'prompt='consent'' força o ecrã de consentimento a aparecer. Útil para testes
-        # ou se quiser que o utilizador reconfirme o consentimento. Remova para um fluxo mais suave após a primeira vez.
+
         authorization_url, state = flow.authorization_url(
             access_type='offline',
             prompt='consent' 
         )
         
-        # Armazena o 'state' na sessão para verificar no callback.
-        # Isto é uma medida de segurança para prevenir ataques CSRF.
+
         request.session['oauth_state'] = state
         return redirect(authorization_url)
     except FileNotFoundError:
@@ -50,12 +44,12 @@ def oauth2callback_view(request):
     View que manipula o callback do Google após a autorização.
     Recebe o código de autorização, troca-o por tokens e guarda as credenciais.
     """
-    # Verifica o 'state' para proteção CSRF (opcional, mas recomendado)
+
     state_from_session = request.session.pop('oauth_state', None)
     state_from_google = request.GET.get('state')
 
     if not state_from_session or state_from_session != state_from_google:
-        # Pode querer registar este erro ou mostrar uma página de erro mais amigável
+
         return HttpResponse("Erro: Parâmetro 'state' inválido. A autenticação pode ter sido comprometida.", status=403)
 
     flow = Flow.from_client_secrets_file(
@@ -69,21 +63,13 @@ def oauth2callback_view(request):
         if not code:
             return HttpResponse("Erro: Código de autorização não fornecido pelo Google.", status=400)
 
-        # Troca o código de autorização por credenciais (access_token, refresh_token, etc.)
         flow.fetch_token(code=code)
         
         credentials = flow.credentials
 
-        # Guarda as credenciais de forma segura.
-        # Para este exemplo, estamos a usar um arquivo pickle.
-        # Em produção, considere soluções mais robustas como Django sessions,
-        # um modelo de base de dados encriptado, ou um sistema de gestão de segredos.
         with open(youtube_config.TOKEN_PICKLE_FILE, 'wb') as token_file:
             pickle.dump(credentials, token_file)
         
-        # Pode redirecionar para uma página de sucesso ou mostrar uma mensagem.
-        # Por exemplo, redirecionar para a página principal ou para a página de onde o upload foi iniciado.
-        # return redirect(reverse('alguma_view_de_sucesso')) 
         return HttpResponse("Autenticação com Google bem-sucedida! O token foi guardado. Pode agora tentar fazer uploads.")
 
     except FileNotFoundError:

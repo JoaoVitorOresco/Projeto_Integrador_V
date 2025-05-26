@@ -1,7 +1,6 @@
 # api_mmpose/views.py
 
 # ----- INÍCIO DO BLOCO DE TESTE DE IMPORT -----
-# Este bloco deve ser o PRIMEIRO código executável no arquivo.
 print("DEBUG VIEWS.PY: Iniciando bloco de teste de importação no topo.")
 _MODELS_IMPORTED_OK = False
 _SERIALIZERS_IMPORTED_OK = False
@@ -21,9 +20,7 @@ try:
     from .youtube_downloader_util import baixar_video_do_youtube_para_servidor
     _YTDOWNLOADER_IMPORTED_OK = True
     print("DEBUG VIEWS.PY: youtube_downloader_util importado com sucesso.")
-    
-    # Mover os outros imports problemáticos para dentro deste try também,
-    # para isolar qual deles está falhando.
+
     from .graphs import (
         grafico_media_angulo_perna,
         grafico_distancia_arma_comparativo,
@@ -50,7 +47,7 @@ except ImportError as e_force_import:
     import traceback
     traceback.print_exc()
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    raise e_force_import # Re-levanta a exceção para parar o servidor e mostrar o erro claramente
+    raise e_force_import 
 except Exception as e_geral_force:
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     print(f"ERRO GERAL DURANTE IMPORTAÇÕES NO TOPO DE VIEWS.PY:")
@@ -71,68 +68,19 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
-from django.http import FileResponse, HttpResponseNotFound, JsonResponse # FileResponse já estava aqui
-import cv2 # Já estava aqui
-import numpy as np # Já estava aqui
-import pandas as pd # Já estava aqui
-from django.shortcuts import get_object_or_404 # Já estava aqui
-from django.urls import reverse # Já estava aqui
-import json # Já estava aqui
-import os # Já estava aqui
+from django.http import FileResponse, HttpResponseNotFound, JsonResponse 
+import cv2 
+import numpy as np 
+import pandas as pd 
+from django.shortcuts import get_object_or_404 
+from django.urls import reverse 
+import json 
+import os 
 
 # Importa a configuração do app para acessar o inferencer pré-carregado
 from .apps import ApiMmposeConfig
 
 
-# ===== SE OS IMPORTS ACIMA NO BLOCO DE TESTE FUNCIONAREM, VOCÊ NÃO PRECISA MAIS DESTES BLOCOS TRY-EXCEPT =====
-# ===== E AS VARIÁVEIS Video, VideoSerializer, etc., JÁ ESTARÃO DEFINIDAS.            =====
-
-# Comente ou remova estes blocos try-except originais, pois movemos os imports para o topo.
-# # Importa modelos e serializers
-# try:
-#     # Estes já foram importados no bloco de teste acima se tudo correu bem
-#     pass # from .models import Video, FrameData 
-#     # pass # from .serializers import VideoSerializer, VideoUploadSerializer
-#     # pass # from .youtube_downloader_util import baixar_video_do_youtube_para_servidor
-# except ImportError: # Este bloco não deveria mais ser alcançado se o de cima funcionar ou falhar primeiro
-#     Video = None
-#     FrameData = None
-#     VideoSerializer = None
-#     VideoUploadSerializer = None
-#     # A função baixar_video_do_youtube_para_servidor não tem um fallback para None aqui.
-#     # Se este import falhar, e mais tarde for chamado, dará um NameError.
-#     print("AVISO (views.py): Modelos ou Serializers não encontrados (bloco original).")
-
-
-# try:
-#     # Este já foi importado no bloco de teste acima se tudo correu bem
-#     pass # from .graphs import (...)
-#     # graphs_available = True # Definido no bloco de teste
-# except ImportError:
-#     graphs_available = False # Definido no bloco de teste
-#     print("AVISO (views.py): Módulo 'graphs.py' ou funções de gráfico não encontradas (bloco original).")
-#     def generate_graph_base64(fig): return None
-#     def grafico_media_angulo_perna(dados): return None
-#     def grafico_distancia_arma_comparativo(dados): return None
-#     def grafico_scatter_pulso_mais_alto_comparativo(dados): return None
-#     def grafico_media_pulso_acima_comparativo(dados): return None
-
-# try:
-#     # Este já foi importado no bloco de teste acima se tudo correu bem
-#     pass # from .video_processor import process_video_with_mmpose
-#     # video_processor_available = True # Definido no bloco de teste
-# except ImportError as e_vp_import:
-#     video_processor_available = False # Definido no bloco de teste
-#     print(f"AVISO (views.py): Módulo 'video_processor.py' não encontrado (bloco original): {e_vp_import}.")
-#     def process_video_with_mmpose(video_instance, django_request_object=None):
-#         print("ERRO (placeholder): Função process_video_with_mmpose não disponível (bloco original).")
-#         if video_instance:
-#             video_instance.processing_status = 'failed'
-#             video_instance.processing_log = 'Erro interno: Processador de vídeo não encontrado (placeholder original).'
-#             video_instance.save()
-
-# Se os imports no topo falharem, o Django não continuará a carregar este arquivo.
-# Se eles funcionarem, as variáveis (Video, VideoSerializer, etc.) estarão disponíveis globalmente neste módulo.
 
 
 # ============================================================================
@@ -417,25 +365,9 @@ class DownloadYouTubeVideoView(APIView):
 
                 if caminho_no_servidor and os.path.exists(caminho_no_servidor):
                     try:
-                        # Serve o arquivo para download
-                        # O nome do arquivo no download será o nome do arquivo no servidor
+
                         response = FileResponse(open(caminho_no_servidor, 'rb'), as_attachment=True, filename=os.path.basename(caminho_no_servidor))
                         
-                        # IMPORTANTE: Limpeza de arquivos temporários
-                        # Idealmente, você não deve apagar o arquivo imediatamente aqui,
-                        # pois a FileResponse pode precisar dele enquanto o streaming ocorre.
-                        # Uma estratégia de limpeza (ex: tarefa Celery, cron job) para a pasta
-                        # 'temp_youtube_downloads' é mais robusta.
-                        # Para um exemplo simples, você poderia tentar apagar após o retorno,
-                        # mas isso não é garantido com FileResponse.
-                        # Exemplo (NÃO RECOMENDADO PARA PRODUÇÃO SEM TESTES CUIDADOSOS):
-                        # response.delete_file_after_send = True # Django 4.0+
-                        # Ou, se quiser arriscar (pode falhar se o arquivo ainda estiver em uso):
-                        # try:
-                        #     os.remove(caminho_no_servidor)
-                        #     print(f"INFO (DownloadYouTubeVideoView): Arquivo temporário {caminho_no_servidor} removido após tentativa de envio.")
-                        # except Exception as e_rem:
-                        #     print(f"AVISO (DownloadYouTubeVideoView): Falha ao remover arquivo temporário {caminho_no_servidor}: {e_rem}")
                         
                         print(f"INFO (DownloadYouTubeVideoView): Servindo arquivo {caminho_no_servidor} para download.")
                         return response
