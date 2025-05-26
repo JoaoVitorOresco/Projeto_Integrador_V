@@ -1,3 +1,4 @@
+# projeto_integrador_V/views.py
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.urls import reverse # Para construir URLs de forma dinâmica
@@ -6,9 +7,11 @@ from google_auth_oauthlib.flow import Flow
 import pickle
 import os
 
-
+# Importar configurações do youtube_config.py
+# Se youtube_config.py estiver no mesmo diretório que este views.py:
 from . import youtube_config
-
+# Se estiver num local diferente, ajuste o import:
+# from seuprojeto.youtube_config import CLIENT_SECRETS_FILE, SCOPES, REDIRECT_URI, TOKEN_PICKLE_FILE
 
 
 def google_auth_start_view(request):

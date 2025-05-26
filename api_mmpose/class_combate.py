@@ -2,7 +2,7 @@ import numpy as np
 
 class DetectorCombate:
     def __init__(self, threshold_movimento=500, intervalo_frames=2, limite_mov_detectado=8,#8,
-                 threshold_braco=85, threshold_angulo_perna=150, lim_minimo_mov_detectado=-12):
+                 threshold_braco=87, threshold_angulo_perna=151, lim_minimo_mov_detectado=-12):
         self.frames_buffer = []
         self.intervalo_frames = intervalo_frames
         self.threshold_movimento = threshold_movimento

@@ -27,8 +27,8 @@ class ApiMmposeConfig(AppConfig):
                 from mmpose.apis import MMPoseInferencer
                 import torch 
 
-                pose2d_config_path = 'x'
-                pose2d_weights_path = 'x'
+                pose2d_config_path = '/home/jvore/mmpose/td-hm_hrnet-w48_8xb32-210e_coco-256x192.py'
+                pose2d_weights_path = '/home/jvore/mmpose/hrnet_w48_coco_256x192-b9e0b3ab_20200708.pth'
 
 
                 if not os.path.exists(pose2d_config_path):

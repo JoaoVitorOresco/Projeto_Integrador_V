@@ -93,10 +93,10 @@ class FrameData(models.Model):
 
     left_leg_angle = models.FloatField(null=True, blank=True)
     right_leg_angle = models.FloatField(null=True, blank=True)
-    front_leg = models.IntegerField(null=True, blank=True) 
-    front_wrist = models.IntegerField(null=True, blank=True) 
+    front_leg = models.IntegerField(null=True, blank=True) # 0 para esquerdo, 1 para direito
+    front_wrist = models.IntegerField(null=True, blank=True) # 0 para esquerdo, 1 para direito
     arm_base_distance = models.FloatField(null=True, blank=True)
-    cup_above = models.IntegerField(null=True, blank=True)
+    cup_above = models.IntegerField(null=True, blank=True) # 1 se sim, 0 se não
 
     class Meta:
         # Garante que cada jogador só tem um registo por frame de um vídeo específico

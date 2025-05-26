@@ -21,13 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x'
+SECRET_KEY = 'django-insecure-23k2u=#w-#z2tm!^aaei06s^^a87p5dipvuggpjm41op2$f_8a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'x',
+    'localhost',
+    '127.0.0.1',
+    'esgrimetrics.ngrok.app', # url do ngrok
 ]
 
 
@@ -94,12 +96,12 @@ WSGI_APPLICATION = 'projeto_integrador_V.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'x',
-        'NAME': 'x',
-        'USER': 'x',
-        'PASSWORD': 'x', 
-        'HOST': 'x',                     
-        'PORT': 'x',                       
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'projeto_integrador',
+        'USER': 'postgres',
+        'PASSWORD': 'projetointegrador', 
+        'HOST': '172.27.208.1',                     
+        'PORT': '5432',                       
     }
 }
 
@@ -152,8 +154,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # à sua API Django.
 CORS_ALLOWED_ORIGINS = [
     # Adicione as URLs EXATAS do seu frontend aqui. Exemplos:
-    "x",    # URL React
-    "x",                        # url do ngrok
+    "http://localhost:5173",    # URL React
+    "http://localhost:3000",    # Comum para React (create-react-app)
+    "http://localhost:5173",    # Comum para Vite (React, Vue)
+    "http://localhost:8080",    # Comum para Vue CLI
+    "http://127.0.0.1:5500",    # Comum para extensão "Live Server" do VS Code
+    "https://esgrimetrics.ngrok.app",                           # url do ngrok
 
     # Quando você colocar seu frontend em produção, adicione a URL dele aqui também:
     # "https://www.seusitefrontend.com",
@@ -172,27 +178,28 @@ CORS_ALLOW_CREDENTIALS = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication', # Bom ter se você também usa a interface navegável do DRF
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated', 
+        'rest_framework.permissions.IsAuthenticated', # Define que o acesso é apenas para usuários autenticados por padrão
     ]
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    'x', #Django 
-    'x', #Django
-    'http://localhost:x', # A origem do seu Vite em desenvolvimento local
-    'http://127.0.0.1:x', # A origem do seu Vite em desenvolvimento local
-    'x', # url ngrok
+    'http://localhost:8001',  # Se o seu Django corre aqui
+    'http://127.0.0.1:8001', # E aqui
+    'http://localhost:5173',  # A origem do seu Vite em desenvolvimento local
+    'http://127.0.0.1:5173', # A origem do seu Vite em desenvolvimento local
+    'https://esgrimetrics.ngrok.app', # url ngrok
 ]
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/mediafiles/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
-CSRF_COOKIE_SECURE = True  
-SESSION_COOKIE_SECURE = True 
+CSRF_COOKIE_SECURE = True  # Envia o cookie CSRF apenas sobre HTTPS.
+SESSION_COOKIE_SECURE = True # Envia o cookie de sessão apenas sobre HTTPS.
 
-CSRF_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SAMESITE = 'None' 
+CSRF_COOKIE_SAMESITE = 'None' # Permite que o cookie CSRF seja enviado em requisições cross-site.
+SESSION_COOKIE_SAMESITE = 'None' # Permite que o cookie de sessão seja enviado.
+
