@@ -6,7 +6,6 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
-import config
 
 
 try:
@@ -72,7 +71,7 @@ def get_authenticated_service(request_django=None):
         print(f"Uma exceção geral ocorreu ao construir o serviço: {str(e)}")
         return None
 
-def upload_video(service, file_path, title, description, category_id = config.category_id, tags, privacy_status= config.privacy_status):
+def upload_video(service, file_path, title, description, category_id, tags, privacy_status="private"):
     """
     Faz o upload de um vídeo para o YouTube. (Esta função permanece como antes)
     ... (código da função upload_video como no exemplo anterior) ...
