@@ -7,7 +7,7 @@ import sideImage from '../images/login-side.jpeg';
 
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
+  //const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,11 +21,11 @@ function LoginPage() {
     setError('');
     setIsSubmitting(true);
 
-    console.log('Tentando fazer login com:', { username, email, password });
+    console.log('Tentando fazer login com:', { email, password });
 
     try {
       const response = await axios.post('/api/auth/login/', {
-        username: username,
+        //username: username,
         email: email,
         password: password
       }, {
@@ -81,7 +81,7 @@ function LoginPage() {
 
           <form onSubmit={handleSubmit}>
 
-              <div className="mb-3 text-start">
+             {/* <div className="mb-3 text-start">
               <label htmlFor="usernameInput" className="form-label">Nome de Usuário</label>
               <input
                 id="usernameInput"
@@ -93,7 +93,7 @@ function LoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-            </div>
+            </div> */}
 
             
             <div className="mb-3 text-start">

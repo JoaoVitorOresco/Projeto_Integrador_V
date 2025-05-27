@@ -21,15 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "x"
+SECRET_KEY = 'x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'x', # url do ngrok
+    'x',
 ]
 
 
@@ -155,8 +153,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     # Adicione as URLs EXATAS do seu frontend aqui. Exemplos:
     "x",    # URL React
-    "x",    
-    "x",    # url do ngrok
+    "x",                        # url do ngrok
 
     # Quando você colocar seu frontend em produção, adicione a URL dele aqui também:
     # "https://www.seusitefrontend.com",
@@ -175,41 +172,27 @@ CORS_ALLOW_CREDENTIALS = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication', # Bom ter se você também usa a interface navegável do DRF
+        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated', # Define que o acesso é apenas para usuários autenticados por padrão
+        'rest_framework.permissions.IsAuthenticated', 
     ]
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    'x',  # Se o seu Django corre aqui
-    'x',
-    'x',  # A origem do seu Vite em desenvolvimento local
-    'x', # A origem do seu Vite em desenvolvimento local
+    'x', #Django 
+    'x', #Django
+    'http://localhost:x', # A origem do seu Vite em desenvolvimento local
+    'http://127.0.0.1:x', # A origem do seu Vite em desenvolvimento local
     'x', # url ngrok
 ]
 
-MEDIA_URL = '/mediafiles/'
+MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
-CSRF_COOKIE_SECURE = True  # Envia o cookie CSRF apenas sobre HTTPS.
-SESSION_COOKIE_SECURE = True # Envia o cookie de sessão apenas sobre HTTPS.
+CSRF_COOKIE_SECURE = True  
+SESSION_COOKIE_SECURE = True 
 
-CSRF_COOKIE_SAMESITE = 'None' # Permite que o cookie CSRF seja enviado em requisições cross-site.
-SESSION_COOKIE_SAMESITE = 'None' # Permite que o cookie de sessão seja enviado.
-#======================================
-# Login apenas com o email e senha
-#======================================
-
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_UNIQUE_EMAIL = True
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None' 
